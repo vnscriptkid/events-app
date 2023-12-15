@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Event {
-  id Int @id @default(autoincrement())
-  name String
+  id          Int      @id @default(autoincrement())
+  name        String
   description String
-  startsAt DateTime
-  price Decimal
+  location    String
+  startsAt    DateTime
+  price       Decimal
 }

@@ -50,7 +50,7 @@ export const createEvent = async (
       name: name.toString(),
       description: description.toString(),
       startsAt: new Date(startsAt.toString()).toISOString(),
-      //   location: location.toString(),
+      location: location.toString(),
       price: price.toString(),
     },
   });

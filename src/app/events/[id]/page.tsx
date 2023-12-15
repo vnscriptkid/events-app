@@ -1,3 +1,4 @@
+import { deleteEvent } from "@/actions";
 import { db } from "@/db";
 import Link from "next/link";
 
@@ -16,6 +17,8 @@ export default async function EventDetailPage(props: EventDetailPageProps) {
 
   console.log(event);
 
+  const deleteEventAction = deleteEvent.bind(null, event?.id as number);
+
   return (
     <div className="p-4">
       <div className="flex">
@@ -29,6 +32,19 @@ export default async function EventDetailPage(props: EventDetailPageProps) {
       <p className="text-xl text-gray-700">{String(event?.price)}</p>
       <p className="text-gray-500">{String(event?.startsAt)}</p>
       <p className="mt-2 text-black">{event?.description}</p>
+      <div className="px-4 py-4 sm:px-6 flex justify-end space-x-3">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Edit
+        </button>
+        <form action={deleteEventAction}>
+          <button
+            type="submit"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

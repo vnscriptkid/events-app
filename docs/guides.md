@@ -3,6 +3,10 @@
 - Prisma
 - sqlite > publisher:"alexcvzz"
 
+## Libs
+
+- react-datepicker
+
 ## Setup env
 
 - nvm install 18.17.0 (incase nextjs requires newer version of nodejs)

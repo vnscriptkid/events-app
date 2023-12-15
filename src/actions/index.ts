@@ -24,3 +24,44 @@ export const updateEvent = async (props: updateEventProps) => {
 
   redirect("/events/" + props.id);
 };
+
+export const createEvent = async (
+  formState: { message: string },
+  formData: FormData
+) => {
+  const name = formData.get("name");
+  const description = formData.get("description");
+  const startsAt = formData.get("startsAt");
+  const location = formData.get("location");
+  const price = formData.get("price");
+
+  console.log("name", name);
+  console.log("description", description);
+  console.log("startsAt", startsAt);
+  console.log("location", location);
+  console.log("price", price);
+
+  if (!name || !description || !startsAt || !location || !price) {
+    return;
+  }
+
+  await db.event.create({
+    data: {
+      name: name.toString(),
+      description: description.toString(),
+      startsAt: new Date(startsAt.toString()).toISOString(),
+      //   location: location.toString(),
+      price: price.toString(),
+    },
+  });
+
+  redirect("/events");
+};
+
+export const deleteEvent = async (id: number) => {
+  await db.event.delete({
+    where: { id },
+  });
+
+  redirect("/events");
+};

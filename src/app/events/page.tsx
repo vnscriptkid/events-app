@@ -1,4 +1,5 @@
 import { db } from "@/db";
+import Link from "next/link";
 
 export default async function Events() {
   const events = await db.event.findMany();
@@ -13,7 +14,9 @@ export default async function Events() {
           className="flex justify-between items-center p-4 bg-white shadow-md rounded-md mb-2"
         >
           <div>
-            <div className="text-black text-lg font-semibold">{event.name}</div>
+            <div className="text-black text-lg font-semibold">
+              <Link href={`/events/${event.id}`}>{event.name}</Link>
+            </div>
             <div className="text-gray-500">{event.startsAt.toString()}</div>
             <div className="text-gray-700">{event.description}</div>
           </div>

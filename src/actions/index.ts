@@ -65,3 +65,23 @@ export const deleteEvent = async (id: number) => {
 
   redirect("/events");
 };
+
+type addRegistrationProps = {
+  eventId: number;
+  name: string;
+  email: string;
+  howHeard: string;
+};
+
+export const addRegistration = async (props: addRegistrationProps) => {
+  await db.registration.create({
+    data: {
+      eventId: props.eventId,
+      name: props.name,
+      email: props.email,
+      howHeard: props.howHeard,
+    },
+  });
+
+  redirect("/events/" + props.eventId + "/registrations");
+};

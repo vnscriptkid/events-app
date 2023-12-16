@@ -24,6 +24,12 @@ export default async function EventDetailPage(props: EventDetailPageProps) {
       <h1 className="text-3xl font-bold text-black">{event?.name}</h1>
       <p className="text-xl text-gray-700">{String(event?.price)}</p>
       <p className="text-gray-500">{String(event?.startsAt)}</p>
+      <Link
+        className="text-black"
+        href={`/events/${event?.id}/registrations/new`}
+      >
+        Register
+      </Link>
       <Link className="text-black" href={`/events/${event?.id}/registrations`}>
         Who registered?
       </Link>

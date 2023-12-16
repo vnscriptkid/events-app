@@ -11,10 +11,22 @@ datasource db {
 }
 
 model Event {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  location    String
-  startsAt    DateTime
-  price       Decimal
+  id            Int            @id @default(autoincrement())
+  name          String
+  description   String
+  location      String
+  startsAt      DateTime
+  price         Decimal
+  registrations Registration[]
+}
+
+model Registration {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  name      String
+  email     String
+  eventId   Int
+  howHeard  String
+  event     Event    @relation(fields: [eventId], references: [id])
 }

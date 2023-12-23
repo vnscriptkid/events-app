@@ -12,3 +12,7 @@ psql:
 
 studio:
 	npx prisma studio
+
+# NEXTAUTH_SECRET
+gen-auth-secret:
+	openssl rand -base64 32

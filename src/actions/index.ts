@@ -3,6 +3,7 @@
 import { db } from "@/db";
 
 import { redirect } from "next/navigation";
+import * as auth from "@/auth";
 
 type updateEventProps = {
   id: number;
@@ -86,3 +87,11 @@ export const addRegistration = async (props: addRegistrationProps) => {
 
   redirect("/events/" + props.eventId + "/registrations");
 };
+
+export async function signIn() {
+  return auth.signIn("github");
+}
+
+export async function signOut() {
+  return auth.signOut();
+}

@@ -20,3 +20,12 @@
 - npm install prisma
 - npx prisma init --datasource-provider sqlite
 - npx prisma migrate dev
+<!-- - @auth/core  -->
+- @auth/prisma-adapter 
+- next-auth
+
+## github oauth setup
+- https://github.com/settings/apps/new
+- events-next-app-dev
+- homepage url: http://localhost:3000/
+- authorization callback url: http://localhost:3000/api/auth/callback/github

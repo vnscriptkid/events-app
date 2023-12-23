@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "./db";
@@ -10,12 +10,7 @@ if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
   throw new Error("Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET");
 }
 
-export const {
-  auth,
-  signIn,
-  signOut,
-  handlers: { GET, POST },
-} = NextAuth({
+const authOptions: NextAuthConfig = {
   adapter: PrismaAdapter(db),
   providers: [
     GithubProvider({
@@ -24,16 +19,23 @@ export const {
     }),
   ],
   // TODO: Is this needed?
-  callbacks: {
-    session: async ({ session, user }) => {
-      if (session && user) {
-        if (!session.user) {
-          session.user = {} as any;
-        }
-        session.user!.id = user.id;
-      }
+  // callbacks: {
+  //   session: async ({ session, user }) => {
+  //     if (session && user) {
+  //       if (!session.user) {
+  //         session.user = {} as any;
+  //       }
+  //       session.user!.id = user.id;
+  //     }
 
-      return session;
-    },
-  },
-});
+  //     return session;
+  //   },
+  // },
+};
+
+export const {
+  auth,
+  signIn,
+  signOut,
+  handlers: { GET, POST },
+} = NextAuth(authOptions);

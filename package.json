@@ -18,7 +18,8 @@
     "prisma": "^5.7.0",
     "react": "^18",
     "react-datepicker": "^4.24.0",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",

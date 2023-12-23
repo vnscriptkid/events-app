@@ -4,6 +4,7 @@ import { db } from "@/db";
 
 import { redirect } from "next/navigation";
 import * as auth from "@/auth";
+import { z, typeToFlattenedError } from "zod";
 
 type updateEventProps = {
   id: number;
@@ -26,34 +27,66 @@ export const updateEvent = async (props: updateEventProps) => {
   redirect("/events/" + props.id);
 };
 
+const createEventSchema = z.object({
+  name: z.string().min(1),
+  description: z.string().min(1),
+  location: z.string().min(1),
+  starts_at: z
+    .string()
+    .transform((x) => new Date(x))
+    .pipe(z.date()),
+  price: z
+    .string()
+    .transform((x) => {
+      return typeof x !== "number" ? Number(x) : x;
+    })
+    .pipe(z.number().positive()),
+});
+
+type createEventFormState = {
+  errors: typeToFlattenedError<
+    z.infer<typeof createEventSchema>
+  >["fieldErrors"] & {
+    _form?: string[];
+  };
+};
+
 export const createEvent = async (
-  formState: { message: string },
+  formState: createEventFormState,
   formData: FormData
-) => {
-  const name = formData.get("name");
-  const description = formData.get("description");
-  const starts_at = formData.get("starts_at");
-  const location = formData.get("location");
-  const price = formData.get("price");
+): Promise<createEventFormState> => {
+  const result = createEventSchema.safeParse({
+    name: formData.get("name"),
+    description: formData.get("description"),
+    starts_at: formData.get("starts_at"),
+    location: formData.get("location"),
+    price: formData.get("price"),
+  });
 
-  console.log("name", name);
-  console.log("description", description);
-  console.log("starts_at", starts_at);
-  console.log("location", location);
-  console.log("price", price);
+  if (!result.success) {
+    console.error("validation error", result.error.flatten().fieldErrors);
+    return {
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
 
-  if (!name || !description || !starts_at || !location || !price) {
-    console.error("missing fields");
-    return;
+  const session = await auth.auth();
+
+  if (!session || !session.user) {
+    return {
+      errors: {
+        _form: ["You must be signed in to create an event"],
+      },
+    };
   }
 
   await db.event.create({
     data: {
-      name: name.toString(),
-      description: description.toString(),
-      starts_at: new Date(starts_at.toString()).toISOString(),
-      location: location.toString(),
-      price: price.toString(),
+      name: result.data.name,
+      description: result.data.description,
+      starts_at: new Date(result.data.starts_at).toISOString(),
+      location: result.data.location,
+      price: result.data.price,
     },
   });
 

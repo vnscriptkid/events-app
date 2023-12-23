@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full dark">
+    <html lang="en" className="h-full light">
       <body className={`${inter.className} h-full`}>
         <Providers>
           <div className="flex flex-col h-full">

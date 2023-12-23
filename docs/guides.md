@@ -6,6 +6,8 @@
 ## Libs
 
 - react-datepicker
+- @nextui-org/react 
+- framer-motion
 
 ## Setup env
 

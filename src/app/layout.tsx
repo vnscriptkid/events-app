@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
 import { Main } from "@/components/layouts/Main";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full dark">
       <body className={`${inter.className} h-full`}>
-        <div className="flex flex-col h-full">
-          <Header />
-          <Main>{children}</Main>
-          <Footer />
-        </div>
+        <Providers>
+          <div className="flex flex-col h-full">
+            <Header />
+            <Main>{children}</Main>
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );

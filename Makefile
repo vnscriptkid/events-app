@@ -9,3 +9,6 @@ down:
 
 psql:
 	docker exec -it pg-events psql -U user -d events
+
+studio:
+	npx prisma studio

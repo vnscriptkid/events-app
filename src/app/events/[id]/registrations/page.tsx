@@ -22,7 +22,7 @@ export default async function Page(props: PageProps) {
       <li>Registration 3</li> */}
       {event?.registrations.map((registration) => (
         <li key={registration.id}>
-          {registration.email} | {registration.name} | {registration.howHeard}
+          {registration.email} | {registration.name} | {registration.how_heard}
         </li>
       ))}
     </ul>

@@ -32,7 +32,7 @@ export default async function EventDetailPage(props: EventDetailPageProps) {
         <div className="ml-4 flex flex-col items-start">
           <h1 className="text-3xl font-bold text-black">{event?.name}</h1>
           <p className="text-xl text-gray-700">{String(event?.price)}</p>
-          <p className="text-gray-500">{String(event?.startsAt)}</p>
+          <p className="text-gray-500">{String(event?.starts_at)}</p>
           <p className="mt-2 text-black">{event?.description}</p>
           <button className="bg-green-600 p-2 rounded text-gray-100 hover:bg-green-700 mt-4">
             <Link href={`/events/${event?.id}/registrations/new`}>

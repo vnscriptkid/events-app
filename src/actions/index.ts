@@ -8,7 +8,7 @@ type updateEventProps = {
   id: number;
   name: string;
   description: string;
-  //   startsAt: Date;
+  //   starts_at: Date;
   //   location: string;
 };
 
@@ -18,7 +18,7 @@ export const updateEvent = async (props: updateEventProps) => {
     data: {
       name: props.name,
       description: props.description,
-      //   startsAt: props.startsAt,
+      //   starts_at: props.starts_at,
     },
   });
 
@@ -31,17 +31,18 @@ export const createEvent = async (
 ) => {
   const name = formData.get("name");
   const description = formData.get("description");
-  const startsAt = formData.get("startsAt");
+  const starts_at = formData.get("starts_at");
   const location = formData.get("location");
   const price = formData.get("price");
 
   console.log("name", name);
   console.log("description", description);
-  console.log("startsAt", startsAt);
+  console.log("starts_at", starts_at);
   console.log("location", location);
   console.log("price", price);
 
-  if (!name || !description || !startsAt || !location || !price) {
+  if (!name || !description || !starts_at || !location || !price) {
+    console.error("missing fields");
     return;
   }
 
@@ -49,7 +50,7 @@ export const createEvent = async (
     data: {
       name: name.toString(),
       description: description.toString(),
-      startsAt: new Date(startsAt.toString()).toISOString(),
+      starts_at: new Date(starts_at.toString()).toISOString(),
       location: location.toString(),
       price: price.toString(),
     },
@@ -70,16 +71,16 @@ type addRegistrationProps = {
   eventId: number;
   name: string;
   email: string;
-  howHeard: string;
+  how_heard: string;
 };
 
 export const addRegistration = async (props: addRegistrationProps) => {
   await db.registration.create({
     data: {
-      eventId: props.eventId,
+      event_id: props.eventId,
       name: props.name,
       email: props.email,
-      howHeard: props.howHeard,
+      how_heard: props.how_heard,
     },
   });
 

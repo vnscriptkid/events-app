@@ -33,12 +33,13 @@ model Registration {
 }
 
 model User {
-  id              Int      @id @default(autoincrement())
-  created_at      DateTime @default(now())
-  updated_at      DateTime @default(now()) @updatedAt
-  email           String   @unique
-  name            String
-  password_digest String
+  id                    Int      @id @default(autoincrement())
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now()) @updatedAt
+  email                 String   @unique
+  name                  String
+  password_digest       String
+  password_confirmation String?
   // role      Role     @default(USER)
   // events    Event[]
 }

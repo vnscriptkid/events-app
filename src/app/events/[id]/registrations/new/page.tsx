@@ -23,7 +23,7 @@ export default async function Page(props: PageProps) {
       data: {
         name: formData.get("name")?.toString() as string,
         email: formData.get("email")?.toString() as string,
-        howHeard: formData.get("howHeard")?.toString() as string,
+        how_heard: formData.get("howHeard")?.toString() as string,
         event: {
           connect: {
             id: event.id,

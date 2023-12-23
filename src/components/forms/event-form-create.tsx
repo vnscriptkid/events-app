@@ -75,7 +75,7 @@ export const EventFormCreate = () => {
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
             <DatePicker
               selected={new Date()}
-              name="startsAt"
+              name="starts_at"
               onChange={(date) => console.log(date)}
               showTimeSelect
               timeFormat="HH:mm"

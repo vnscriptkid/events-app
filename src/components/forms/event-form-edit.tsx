@@ -19,7 +19,7 @@ export const EventFormEdit = (props: { event: Event }) => {
   });
 
   return (
-    <div className="mt-auto p-4 text-black">
+    <div className="mt-auto p-4 text-black border-2 rounded-lg shadow-lg">
       <form action={updateEventAction}>
         <div className="flex flex-col">
           <label

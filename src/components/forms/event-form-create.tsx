@@ -9,7 +9,7 @@ export const EventFormCreate = () => {
   const [formState, action] = useFormState(createEvent as any, { message: "" });
 
   return (
-    <div className="mt-auto p-4 text-black">
+    <div className="mt-auto p-4 text-black border-2 rounded-lg shadow-lg">
       <form action={action}>
         <div className="flex flex-col">
           <label

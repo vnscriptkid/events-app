@@ -94,7 +94,13 @@ export const createEvent = async (
   redirect("/events");
 };
 
-export const deleteEvent = async (id: number) => {
+export const deleteEvent = async (id: number, creator_id?: string) => {
+  const session = await auth.auth();
+
+  if (!session || !session.user || session.user.id !== creator_id) {
+    return redirect("/events/" + id);
+  }
+
   await db.event.delete({
     where: { id },
   });

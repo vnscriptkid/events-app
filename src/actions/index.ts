@@ -87,6 +87,7 @@ export const createEvent = async (
       starts_at: new Date(result.data.starts_at).toISOString(),
       location: result.data.location,
       price: result.data.price,
+      user_id: session.user.id,
     },
   });
 

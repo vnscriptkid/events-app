@@ -20,6 +20,8 @@ model Event {
   price         Decimal
   registrations Registration[]
   // TODO: event creator
+  user_id       String
+  user          User           @relation(fields: [user_id], references: [id])
 }
 
 model Registration {
@@ -71,6 +73,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   registrations Registration[]
+  events        Event[]
 }
 
 model VerificationToken {

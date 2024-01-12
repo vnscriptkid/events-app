@@ -22,6 +22,7 @@ model Event {
   // TODO: event creator
   user_id       String
   user          User           @relation(fields: [user_id], references: [id])
+  likes         Like[]
 }
 
 model Registration {
@@ -35,6 +36,17 @@ model Registration {
   user       User     @relation(fields: [user_id], references: [id])
 
   @@unique([user_id, event_id]) // user can only register once for an event
+}
+
+model Like {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  user_id    String
+  event_id   Int
+  event      Event    @relation(fields: [event_id], references: [id])
+  user       User     @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, event_id]) // user can only like once for an event
 }
 
 model Account {
@@ -74,6 +86,7 @@ model User {
   sessions      Session[]
   registrations Registration[]
   events        Event[]
+  likes         Like[]
 }
 
 model VerificationToken {

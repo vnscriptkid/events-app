@@ -12,17 +12,18 @@ datasource db {
 }
 
 model Event {
-  id            Int            @id @default(autoincrement())
-  name          String
-  description   String
-  location      String
-  starts_at     DateTime
-  price         Decimal
-  registrations Registration[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  description    String
+  location       String
+  starts_at      DateTime
+  price          Decimal
+  registrations  Registration[]
   // TODO: event creator
-  user_id       String
-  user          User           @relation(fields: [user_id], references: [id])
-  likes         Like[]
+  user_id        String
+  user           User             @relation(fields: [user_id], references: [id])
+  likes          Like[]
+  Categorization Categorization[]
 }
 
 model Registration {
@@ -74,6 +75,24 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id             String           @id @default(cuid())
+  name           String           @unique
+  categorization Categorization[]
+}
+
+// mapping table between Category and Event
+// 1 event can have many categories
+// 1 category can have many events
+model Categorization {
+  event_id    Int
+  category_id String
+  event       Event    @relation(fields: [event_id], references: [id])
+  category    Category @relation(fields: [category_id], references: [id])
+
+  @@unique([event_id, category_id])
 }
 
 model User {

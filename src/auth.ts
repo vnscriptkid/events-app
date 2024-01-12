@@ -18,19 +18,19 @@ const authOptions: NextAuthConfig = {
       clientSecret: GITHUB_CLIENT_SECRET,
     }),
   ],
-  // TODO: Is this needed?
-  // callbacks: {
-  //   session: async ({ session, user }) => {
-  //     if (session && user) {
-  //       if (!session.user) {
-  //         session.user = {} as any;
-  //       }
-  //       session.user!.id = user.id;
-  //     }
+  // This is fix so that we have access to the user id in the session
+  callbacks: {
+    session: async ({ session, user }) => {
+      if (session && user) {
+        if (!session.user) {
+          session.user = {} as any;
+        }
+        session.user!.id = user.id;
+      }
 
-  //     return session;
-  //   },
-  // },
+      return session;
+    },
+  },
 };
 
 export const {

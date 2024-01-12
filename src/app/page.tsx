@@ -8,18 +8,18 @@ export default async function Home() {
 
   return (
     <div>
-      <form action={actions.signIn}>
+      {/* <form action={actions.signIn}>
         <Button type="submit">Signin</Button>
       </form>
       <form action={actions.signOut}>
         <Button type="submit">Signout</Button>
-      </form>
-      {session && (
+      </form> */}
+      {/* {session && (
         <div>
           <code>{JSON.stringify(session.user)}</code>
         </div>
-      )}
-      <Profile />
+      )} */}
+      {/* <Profile /> */}
       {/* <div className="flex justify-between items-center p-4 bg-white shadow-md rounded-md mb-2">
         <div>
           <div className="text-black text-lg font-semibold">BugSmash</div>

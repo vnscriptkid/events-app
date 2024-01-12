@@ -103,17 +103,15 @@ export const deleteEvent = async (id: number) => {
 
 type addRegistrationProps = {
   eventId: number;
-  name: string;
-  email: string;
   how_heard: string;
+  user_id: string;
 };
 
 export const addRegistration = async (props: addRegistrationProps) => {
   await db.registration.create({
     data: {
       event_id: props.eventId,
-      name: props.name,
-      email: props.email,
+      user_id: props.user_id,
       how_heard: props.how_heard,
     },
   });

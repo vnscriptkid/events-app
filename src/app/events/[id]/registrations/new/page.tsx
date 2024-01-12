@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { notFound, redirect } from "next/navigation";
+import * as auth from "@/auth";
 
 type PageProps = {
   params: {
@@ -19,10 +20,22 @@ export default async function Page(props: PageProps) {
   const addRegistration = async (formData: FormData) => {
     "use server";
 
+    const session = await auth.auth();
+
+    if (!session || !session.user) {
+      // TODO: redirect to signin page
+      return redirect("/");
+    }
+
     const registration = await db.registration.create({
       data: {
-        name: formData.get("name")?.toString() as string,
-        email: formData.get("email")?.toString() as string,
+        // name: formData.get("name")?.toString() as string,
+        // email: formData.get("email")?.toString() as string,
+        user: {
+          connect: {
+            id: session.user.id,
+          },
+        },
         how_heard: formData.get("howHeard")?.toString() as string,
         event: {
           connect: {
@@ -44,7 +57,7 @@ export default async function Page(props: PageProps) {
             Registration for Hackathon
           </h1>
         </div>
-        <div className="-mx-3 md:flex mb-6">
+        {/* <div className="-mx-3 md:flex mb-6">
           <div className="md:w-full px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
@@ -60,8 +73,8 @@ export default async function Page(props: PageProps) {
               name="name"
             />
           </div>
-        </div>
-        <div className="-mx-3 md:flex mb-6">
+        </div> */}
+        {/* <div className="-mx-3 md:flex mb-6">
           <div className="md:w-full px-3">
             <label
               className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
@@ -77,7 +90,7 @@ export default async function Page(props: PageProps) {
               name="email"
             />
           </div>
-        </div>
+        </div> */}
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-full px-3">
             <label

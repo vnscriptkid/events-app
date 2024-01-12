@@ -14,6 +14,12 @@ export const EventFormCreate = () => {
   return (
     <div className="mt-auto p-8 text-black border-2 rounded-lg shadow-lg">
       <form action={action} className="flex flex-col gap-4">
+        {formState.errors._form && (
+          <div className="text-white bg-red-500 p-2 rounded-lg">
+            {formState.errors._form.join(", ")}
+          </div>
+        )}
+
         <Input
           name="name"
           label="Event name"

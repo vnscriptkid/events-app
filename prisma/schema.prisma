@@ -19,30 +19,21 @@ model Event {
   starts_at     DateTime
   price         Decimal
   registrations Registration[]
+  // TODO: event creator
 }
 
 model Registration {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
-  name       String
-  email      String
+  user_id    String
   event_id   Int
   how_heard  String
   event      Event    @relation(fields: [event_id], references: [id])
-}
+  user       User     @relation(fields: [user_id], references: [id])
 
-// model User {
-//   id                    Int      @id @default(autoincrement())
-//   created_at            DateTime @default(now())
-//   updated_at            DateTime @default(now()) @updatedAt
-//   email                 String   @unique
-//   name                  String
-//   password_digest       String
-//   password_confirmation String?
-//   // role      Role     @default(USER)
-//   // events    Event[]
-// }
+  @@unique([user_id, event_id]) // user can only register once for an event
+}
 
 model Account {
   id                String  @id @default(cuid())
@@ -72,13 +63,14 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  registrations Registration[]
 }
 
 model VerificationToken {

@@ -8,10 +8,12 @@ type PageProps = {
 
 export default async function Page(props: PageProps) {
   // find event including registrations
+  // TODO: check actual sql query
   const event = await db.event.findUnique({
     where: { id: Number(props.params.id) },
     include: {
-      registrations: true,
+      // include user for each registration
+      registrations: { include: { user: true } },
     },
   });
 
@@ -22,7 +24,8 @@ export default async function Page(props: PageProps) {
       <li>Registration 3</li> */}
       {event?.registrations.map((registration) => (
         <li key={registration.id}>
-          {registration.email} | {registration.name} | {registration.how_heard}
+          {registration.user.name} | {registration.user.email} |{" "}
+          {registration.how_heard}
         </li>
       ))}
     </ul>

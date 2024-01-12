@@ -8,6 +8,7 @@
 - react-datepicker
 - @nextui-org/react 
 - framer-motion
+- @faker-js/faker
 
 ## Setup env
 

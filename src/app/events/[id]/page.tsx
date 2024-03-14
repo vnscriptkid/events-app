@@ -59,6 +59,24 @@ export default async function EventDetailPage(props: EventDetailPageProps) {
             Who registered?
           </Link>
         </div>
+        <div>
+          <div>
+            <h3 className="font-bold h-3 mb-4">Liked by</h3>
+            <ul>
+              <li>user 1</li>
+              <li>user 2</li>
+              <li>user 3</li>
+            </ul>
+          </div>
+          <div className="mt-8">
+            <h3 className="font-bold h-3 mb-4">Categories</h3>
+            <ul>
+              <li>category 1</li>
+              <li>category 2</li>
+              <li>category 3</li>
+            </ul>
+          </div>
+        </div>
       </div>
       {amOwnerOfEvent && (
         <div className="px-4 py-4 sm:px-6 flex justify-center space-x-3 border-t-2 mt-8 border-dotted">

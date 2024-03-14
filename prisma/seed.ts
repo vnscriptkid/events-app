@@ -60,6 +60,51 @@ export const seed = async () => {
       },
     });
   }
+
+  // create 15 categories
+  const categoryIds = [] as string[];
+  for (let i = 0; i < 15; i++) {
+    const categoryId = faker.string.uuid();
+    categoryIds.push(categoryId);
+    await db.category.create({
+      data: {
+        name: faker.lorem.words(2),
+        id: categoryId,
+      },
+    });
+  }
+
+  // go through each event and assign from 1 to 3 categories
+  for (let i = 0; i < eventIds.length; i++) {
+    const eventId = eventIds[i];
+    const randomCategoryIds = [] as string[];
+    for (let j = 0; j < Math.floor(Math.random() * 3) + 1; j++) {
+      const randomCategoryId =
+        categoryIds[Math.floor(Math.random() * categoryIds.length)];
+      randomCategoryIds.push(randomCategoryId);
+      await db.categorization.upsert({
+        create: {
+          event_id: eventId,
+          category_id: randomCategoryId,
+        },
+        update: {},
+        where: {
+          event_id_category_id: {
+            event_id: eventId,
+            category_id: randomCategoryId,
+          },
+        },
+      });
+    }
+    // await db.event.update({
+    //   where: { id: eventId },
+    //   data: {
+    //     Categorization: {
+    //       connect: randomCategoryIds.map((id) => ({ id })),
+    //     },
+    //   },
+    // });
+  }
 };
 
 seed()
